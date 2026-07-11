@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zaytun — Funchal · Madeira</title>
+<meta name="description" content="A experiência levantina da Madeira — Sabores do Líbano e do Mediterrâneo no Funchal">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--terra:#b5532c;--teal:#1f6f68;--gold:#c9a24b;--cream:#f6efe1;--ink:#2c1e12;--muted:#8a7458;--line:#e3d6bf}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#160f08;overflow-x:hidden}
+h1,h2,h3{font-family:'Marcellus',serif;font-weight:400;line-height:1.12}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+::selection{background:var(--terra);color:#fff}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+.flag{background:var(--terra);color:#fff;text-align:center;font-size:12.5px;padding:8px;letter-spacing:.5px;position:relative;z-index:70}
+
+/* ===== INTRO: fachada real + porta que abre + zoom-through ===== */
+.intro-wrap{height:240vh;position:relative;z-index:5}
+.intro{position:sticky;top:0;height:100vh;overflow:hidden;background:#140c05}
+/* página inicial ESTÁTICA por trás (uma só imagem) */
+.homebg{position:absolute;inset:0;background:linear-gradient(rgba(20,12,6,.12),rgba(20,12,6,.34)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20lebanese%20cuisine%20table%20setting.jpg?width=1600');background-size:cover;background-position:center;z-index:1;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.homebg .hi{opacity:0;padding:0 24px;max-width:760px}
+.homebg .ar{font-family:'Amiri',serif;font-size:28px;color:var(--gold);letter-spacing:3px;margin-bottom:12px;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+.homebg h1{font-size:clamp(52px,10vw,120px);letter-spacing:2px;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.65),0 2px 8px rgba(0,0,0,.5)}
+.homebg .tag{font-size:clamp(16px,2.3vw,22px);margin:16px auto 0;color:#fff;font-weight:400;max-width:600px;text-shadow:0 2px 16px rgba(0,0,0,.75)}
+/* canvas em coords de PIXEL da imagem (1200x1607), zoom a partir do centro da porta */
+.canvas{position:absolute;left:0;top:0;width:1200px;height:1585px;transform-origin:600px 912px;will-change:transform,opacity;z-index:2}
+.canvas img{position:absolute}
+.wall{left:0;top:0;width:1200px;height:1585px;z-index:2}         /* parede com o vão vazado */
+.leaf{z-index:1;will-change:transform}                           /* metades atrás da parede */
+.dl{left:418px;top:514px}.dr{left:597px;top:514px}
+.hint{position:absolute;left:50%;bottom:38px;transform:translateX(-50%);z-index:8;pointer-events:none;color:#fff;font-size:13px;letter-spacing:3px;text-transform:uppercase;text-align:center;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.hint .ar{display:block;font-size:22px;margin-top:8px;animation:bob 1.6s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+.site{position:relative;z-index:10;background:var(--cream)}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:.4s;opacity:0;pointer-events:none;transform:translateY(-12px)}
+nav.show{opacity:1;pointer-events:auto;transform:none}
+nav.solid{background:rgba(246,239,225,.96);backdrop-filter:blur(10px);box-shadow:0 4px 24px rgba(90,57,37,.12)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+nav .brand{font-family:'Marcellus',serif;font-size:24px;letter-spacing:1px;color:var(--ink)}nav .brand b{color:var(--terra)}
+nav .cta{background:var(--terra);color:#fff;padding:11px 24px;border-radius:2px;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;font-family:inherit;transition:.3s}
+nav .cta:hover{background:var(--teal)}
+@media(max-width:680px){nav .cta{padding:9px 15px;font-size:11px}nav .brand{font-size:20px}}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;color:#fff;text-align:center;overflow:hidden}
+.hero .bg{position:absolute;inset:0;background:linear-gradient(rgba(22,14,7,.55),rgba(22,14,7,.7)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20lebanese%20cuisine%20table%20setting.jpg?width=1600');background-size:cover;background-position:center;z-index:-1}
+.hero .wrap{width:100%}
+.hero .ar{font-family:'Amiri',serif;font-size:28px;color:var(--gold);letter-spacing:3px;margin-bottom:12px}
+.hero h1{font-size:clamp(52px,10vw,120px);letter-spacing:2px}
+.hero .tag{font-size:clamp(16px,2.3vw,22px);margin-top:16px;color:#f0e6d2;font-weight:300;max-width:600px;margin-left:auto;margin-right:auto}
+.acts{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:16px 34px;border-radius:2px;font-weight:500;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;font-family:inherit;display:inline-block;transition:.3s}
+.btn-p{background:var(--terra);color:#fff}.btn-p:hover{background:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.btn-g{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}.btn-g:hover{background:rgba(255,255,255,.1)}
+
+.ticker{background:var(--ink);color:#efe4cf;overflow:hidden}
+.ticker .track{display:inline-flex;white-space:nowrap;padding:10px 0;animation:tick 46s linear infinite}
+.ticker .it{display:inline-flex;align-items:center;font-size:13px;padding:0 26px}.ticker .it b{color:var(--gold);margin-right:8px}.ticker .dot{color:var(--terra);margin:0 5px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:104px 0}
+.eyebrow{color:var(--terra);font-weight:600;letter-spacing:3px;text-transform:uppercase;font-size:12px}
+.title{font-size:clamp(32px,5vw,54px);margin:14px 0 18px}
+.lead{color:var(--muted);font-size:18px;max-width:620px;line-height:1.7}
+
+.dishes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:52px}
+.dish{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .3s,box-shadow .3s;transform-style:preserve-3d}
+.dish:hover{box-shadow:0 26px 55px -25px rgba(90,57,37,.4)}
+.dish .dimg{height:200px;background-size:cover;background-position:center}
+.dish .db{padding:24px}.dish h3{font-size:23px;margin-bottom:6px}.dish p{color:var(--muted);font-size:14.5px;font-weight:300}
+
+.menu{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.menu .cats{display:grid;grid-template-columns:1fr 1fr;gap:48px 70px;margin-top:52px}
+.menu .cat h3{font-size:24px;color:var(--terra);margin-bottom:20px;border-bottom:2px solid var(--line);padding-bottom:10px}
+.mrow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:11px 0}
+.mrow .n{font-weight:500;font-size:16px}.mrow .d{color:var(--muted);font-size:13px;font-weight:300}
+.mrow .dots{flex:1;border-bottom:1px dotted #cdbfa6;margin:0 4px;transform:translateY(-4px)}
+.mrow .p{color:var(--terra);font-weight:600;font-family:'Marcellus',serif}
+@media(max-width:760px){.menu .cats{grid-template-columns:1fr;gap:34px}}
+
+.reviews{background:var(--cream)}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:50px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:6px;padding:30px}
+.rev .st{color:var(--gold);letter-spacing:2px}.rev p{margin:14px 0;font-size:16px;line-height:1.6;font-weight:300}
+.rev .who{font-size:13px;color:var(--muted)}.rev .who b{color:var(--ink);font-weight:600}
+
+.band{position:relative;text-align:center;color:#fff;overflow:hidden}
+.band .bg{position:absolute;inset:0;background:linear-gradient(rgba(30,18,10,.72),rgba(30,18,10,.8)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20lebanese%20cuisine%20table%20setting.jpg?width=1400');background-size:cover;background-position:center;z-index:-1}
+.band h2{font-size:clamp(30px,5vw,54px)}.band p{margin-top:14px;font-size:18px;font-weight:300;opacity:.9}
+.band .btn-p{background:var(--gold);color:var(--ink);margin-top:26px}.band .btn-p:hover{background:#fff}
+
+footer{background:var(--ink);color:#cbb99b;padding:56px 0 40px;text-align:center}
+footer .brand{font-family:'Marcellus',serif;color:#fff;font-size:26px}footer .brand b{color:var(--gold)}
+footer .line{margin-top:12px;font-size:14px}footer .made{margin-top:22px;font-size:12px;opacity:.5}
+
+.ov{position:fixed;inset:0;background:rgba(30,18,10,.7);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.ov.open{display:flex}
+.modal{background:#fff;border-radius:8px;max-width:440px;width:100%;padding:34px;max-height:92vh;overflow:auto}
+.modal h3{font-size:28px}.modal .sub{color:var(--muted);font-size:14px;margin:8px 0 20px}
+.modal label{display:block;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.modal input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:4px;font-size:16px;font-family:inherit}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slot{padding:10px 0;text-align:center;border:1px solid var(--line);border-radius:4px;font-size:13px;cursor:pointer}.slot.sel{background:var(--terra);color:#fff;border-color:var(--terra)}
+.modal .send{width:100%;margin-top:22px;background:var(--terra);color:#fff;padding:15px;border:none;border-radius:4px;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.modal .x{float:right;font-size:26px;color:var(--muted);cursor:pointer;background:none;border:none}
+.ok{text-align:center;padding:16px 0}.ok .big{font-size:48px}
+@media(max-width:820px){section{padding:74px 0}}
+</style>
+</head>
+<body>
+<div class="flag">✦ Versão de demonstração criada para Zaytun — proposta de novo site</div>
+
+<div class="intro-wrap" id="introWrap">
+  <div class="intro">
+    <div class="homebg" id="homebg">
+      <div class="hi" id="hi">
+        <div class="ar">زيتون</div>
+        <h1>Zaytun</h1>
+        <p class="tag">A experiência levantina da Madeira — Sabores do Líbano e do Mediterrâneo no Funchal</p>
+        <div class="acts"><button class="btn btn-p" onclick="openR()">Reservar mesa</button>
+          <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=Zaytun+Levant+Cuisine+Funchal" target="_blank">Como chegar</a></div>
+      </div>
+    </div>
+    <div class="canvas" id="canvas">
+      <img class="leaf dl" id="dl" src="door_l.webp" alt="">
+      <img class="leaf dr" id="dr" src="door_r.webp" alt="">
+      <img class="wall" src="wall.webp" alt="fachada">
+    </div>
+    <div class="hint" id="hint">role para entrar<span class="ar">▼</span></div>
+  </div>
+</div>
+
+<nav id="nav"><div class="wrap"><div class="brand">Zaytun<b>.</b></div></div></nav>
+
+<div class="site">
+<div class="ticker"><div class="track"><span class="it"><b>MADEIRA</b>Funchal aprova apoios à Natalidade e Família<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Madeira atinge maior população em catorze anos: 266.130 residentes<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Leão-marinho avistado no Porto Recreativo de Santa Cruz surpreende<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Turismo na Madeira mantém tendência de crescimento<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Estrada Monumental reforça oferta gastronómica no Funchal<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Funchal aprova apoios à Natalidade e Família<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Madeira atinge maior população em catorze anos: 266.130 residentes<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Leão-marinho avistado no Porto Recreativo de Santa Cruz surpreende<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Turismo na Madeira mantém tendência de crescimento<span class="dot">◆</span></span><span class="it"><b>MADEIRA</b>Estrada Monumental reforça oferta gastronómica no Funchal<span class="dot">◆</span></span></div></div>
+
+<section><div class="wrap">
+  <div class="eyebrow reveal">A nossa cozinha</div>
+  <h2 class="title reveal d1">Uma viagem ao coração do Oriente</h2>
+  <p class="lead reveal d2">Do húmus cremoso ao falafel estaladiço, do tabbouleh fresco à baklava dourada — receitas autênticas do Líbano e do Mediterrâneo Oriental, com ingredientes frescos e a hospitalidade de quem recebe em casa.</p>
+  <div class="dishes"><div class="dish reveal d0"><div class="dimg" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Lebanese%20style%20hummus.jpg?width=600')"></div>
+              <div class="db"><h3>Húmus</h3><p>Grão-de-bico, tahine, azeite e limão.</p></div></div><div class="dish reveal d1"><div class="dimg" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Maoz%20Falafel.jpg?width=600')"></div>
+              <div class="db"><h3>Falafel</h3><p>Estaladiço por fora, macio por dentro.</p></div></div><div class="dish reveal d2"><div class="dimg" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20lebanese%20cuisine%20table%20setting.jpg?width=600')"></div>
+              <div class="db"><h3>Mezze</h3><p>Uma mesa de pequenos pratos para partilhar.</p></div></div><div class="dish reveal d3"><div class="dimg" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Falafel%20%26%20Hummus%20Wrap%20-%20Lavash%202024-08-19.jpg?width=600')"></div>
+              <div class="db"><h3>Wrap Levantino</h3><p>Pão fino, recheios frescos, sabor a Beirute.</p></div></div></div>
+</div></section>
+
+<section class="menu"><div class="wrap">
+  <div class="eyebrow reveal">Menu</div><h2 class="title reveal d1">Sabores do Oriente</h2>
+  <div class="cats"><div class="cat reveal"><h3>Mezze (entradas)</h3><div class="mrow"><span class="n">Húmus <span class="d">com azeite e pinhões</span></span><span class="dots"></span><span class="p">€6,50</span></div><div class="mrow"><span class="n">Moutabal <span class="d">beringela fumada</span></span><span class="dots"></span><span class="p">€6,50</span></div><div class="mrow"><span class="n">Falafel (6 un.)</span><span class="dots"></span><span class="p">€7,00</span></div><div class="mrow"><span class="n">Tabbouleh</span><span class="dots"></span><span class="p">€7,50</span></div><div class="mrow"><span class="n">Fattoush</span><span class="dots"></span><span class="p">€7,50</span></div></div><div class="cat reveal"><h3>Pratos principais</h3><div class="mrow"><span class="n">Shawarma de frango</span><span class="dots"></span><span class="p">€13,00</span></div><div class="mrow"><span class="n">Kibbeh (4 un.)</span><span class="dots"></span><span class="p">€12,00</span></div><div class="mrow"><span class="n">Grelhados mistos <span class="d">para dois</span></span><span class="dots"></span><span class="p">€28,00</span></div><div class="mrow"><span class="n">Manakish (za&#x27;atar)</span><span class="dots"></span><span class="p">€8,00</span></div></div><div class="cat reveal"><h3>Sobremesas</h3><div class="mrow"><span class="n">Baklava (3 un.)</span><span class="dots"></span><span class="p">€6,00</span></div><div class="mrow"><span class="n">Halva</span><span class="dots"></span><span class="p">€5,00</span></div><div class="mrow"><span class="n">Mouhalabieh <span class="d">flor de laranjeira</span></span><span class="dots"></span><span class="p">€5,50</span></div></div><div class="cat reveal"><h3>Bebidas</h3><div class="mrow"><span class="n">Chá de menta</span><span class="dots"></span><span class="p">€3,00</span></div><div class="mrow"><span class="n">Ayran</span><span class="dots"></span><span class="p">€3,00</span></div><div class="mrow"><span class="n">Vinho da casa (copo)</span><span class="dots"></span><span class="p">€4,00</span></div><div class="mrow"><span class="n">Arak</span><span class="dots"></span><span class="p">€5,00</span></div></div></div>
+</div></section>
+
+<section class="reviews"><div class="wrap">
+  <div class="eyebrow reveal">Opiniões</div><h2 class="title reveal d1">Quem prova, volta</h2>
+  <div class="rev-grid"><div class="rev reveal d0"><div class="st">★★★★★</div><p>“A única experiência levantina da Madeira — os sabores são de outro nível.”</p>
+              <div class="who"><b>Sara M.</b> · Google</div></div><div class="rev reveal d1"><div class="st">★★★★★</div><p>“Húmus e falafel autênticos, ambiente lindíssimo. Recomendo muito!”</p>
+              <div class="who"><b>Pedro L.</b> · Google</div></div><div class="rev reveal d2"><div class="st">★★★★★</div><p>“Uma viagem ao Líbano sem sair do Funchal. Voltaremos de certeza.”</p>
+              <div class="who"><b>Inês R.</b> · Google</div></div></div>
+</div></section>
+
+<section class="band"><div class="bg"></div><div class="wrap">
+  <h2 class="reveal">Reserve a sua mesa</h2><p class="reveal d1">Uma viagem ao Líbano, no coração do Funchal.</p>
+  <button class="btn btn-p reveal d2" onclick="openR()">Reservar mesa</button>
+</div></section>
+
+<footer><div class="wrap"><div class="brand">Zaytun<b>.</b></div>
+  <div class="line"><a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xc605f61010f694b:0x2c310b28c23378ec?sa=X&ved=1t:8290&ictx=111" target="_blank" style="color:var(--gold)">Estrada Monumental 334c, São Martinho, 9000-100 Funchal</a> · <a href="tel:+351291615000" style="color:var(--gold)">291 615 000</a></div>
+  <div class="made">Site de demonstração · desenhado por [Antonio Simão / Pegada da Ilha]</div>
+</div></footer>
+</div>
+
+<div class="ov" id="ov"><div class="modal">
+  <div id="form"><button class="x" onclick="closeR()">×</button><h3>Reservar mesa</h3>
+    <p class="sub">Em Zaytun · escolha dia, hora e deixe o seu contacto.</p>
+    <label>Dia</label><input type="date" id="rdate"><label>Horário</label>
+    <div class="slots" id="slots"><div class="slot">19:00</div><div class="slot">19:30</div><div class="slot">20:00</div><div class="slot">20:30</div><div class="slot">21:00</div><div class="slot">21:30</div><div class="slot">22:00</div><div class="slot">22:30</div></div>
+    <label>Email ou telemóvel</label><input type="text" id="rcontact" placeholder="o seu contacto">
+    <button class="send" onclick="sendR()">Confirmar pedido</button></div>
+  <div class="ok" id="ok" style="display:none"><div class="big">✅</div><h3>Pedido enviado!</h3><p id="okmsg"></p><button class="send" style="margin-top:18px" onclick="closeR()">Fechar</button></div>
+</div></div>
+
+<script>
+const iw=document.getElementById('introWrap'),cv=document.getElementById('canvas'),hi=document.getElementById('hi'),
+      dl=document.getElementById('dl'),dr=document.getElementById('dr'),hint=document.getElementById('hint'),nav=document.getElementById('nav');
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v)), smooth=x=>x*x*(3-2*x);
+const OX=600,OY=912;                       // centro da porta (origem do zoom)
+function onScroll(){
+  const vw=innerWidth, vh=innerHeight, top=iw.getBoundingClientRect().top;
+  const p=clamp(-top/(iw.offsetHeight-vh),0,1);
+  // escala inicial cobre o ecrã; escala final = o vão da porta preenche o ecrã (a parede sai)
+  const s0=Math.max(vw/1200, vh/1346)*1.03;
+  const sBig=Math.max(vw/360, vh/792)*1.5;
+  const eOpen=smooth(clamp(p/0.42,0,1));         // 1) porta abre
+  const eZoom=smooth(clamp((p-0.34)/0.66,0,1));  // 2) zoom-in atravessa a porta
+  const s=s0+(sBig-s0)*eZoom;
+  const tx=vw/2-OX, ty=vh/2-OY;
+  cv.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')';
+  cv.style.opacity=String(1-clamp((p-0.80)/0.16,0,1)); // parede some, fica a página inicial
+  cv.style.pointerEvents = p>0.82 ? 'none' : 'auto';   // libera o clique nos botões da home
+  dl.style.transform='translateX('+(-eOpen*190)+'px)';  // metades escondem atrás da parede
+  dr.style.transform='translateX('+(eOpen*190)+'px)';
+  hi.style.opacity=String(clamp((p-0.66)/0.20,0,1));    // textos da home entram no fim
+  hint.style.opacity=String(Math.max(0,1-p*4));
+  nav.classList.toggle('show', p>0.9);
+  nav.classList.toggle('solid', scrollY>iw.offsetHeight-vh*0.6);
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.dish').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(800px) rotateX('+(-y*6)+'deg) rotateY('+(x*8)+'deg) translateY(-5px)'});c.addEventListener('mouseleave',()=>c.style.transform='')});
+const ov=document.getElementById('ov');let slot=null;
+function openR(){ov.classList.add('open');document.getElementById('rdate').min=new Date().toISOString().split('T')[0]}
+function closeR(){ov.classList.remove('open');document.getElementById('form').style.display='';document.getElementById('ok').style.display='none'}
+ov.addEventListener('click',e=>{if(e.target===ov)closeR()});
+document.querySelectorAll('#slots .slot').forEach(s=>s.addEventListener('click',()=>{document.querySelectorAll('#slots .slot').forEach(x=>x.classList.remove('sel'));s.classList.add('sel');slot=s.textContent}));
+function sendR(){const d=document.getElementById('rdate').value,c=document.getElementById('rcontact').value;if(!d||!slot||!c){alert('Escolha dia, horário e deixe o seu contacto.');return}document.getElementById('form').style.display='none';document.getElementById('ok').style.display='';document.getElementById('okmsg').textContent='Reserva para '+d+' às '+slot+'. Entraremos em contacto por '+c+' para confirmar.';}
+</script>
+</body>
+</html>
